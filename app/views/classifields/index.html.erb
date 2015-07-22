@@ -1,0 +1,16 @@
+<%= stylesheet_link_tag "bootstrap-min"%>
+<%= stylesheet_link_tag "bootstrap-theme-min"%>
+<h2>Search Nearby</h2>
+
+  <%= form_tag classifields_path, :method => :get do %>
+      <p>
+        <%= text_field_tag :search, params[:search] %>
+        <%= submit_tag "Search Near", :name => nil %>
+  <% end %>
+
+    <% if !@searchItem.nil?%>
+  <h2>Looking for <%=@searchItem%></h2>
+      <%end%>
+  <% @resultArray.each do |element| %>
+      <li><%= element%></li><br/>
+  <% end %>

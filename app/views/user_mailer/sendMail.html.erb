@@ -1,0 +1,16 @@
+A new post has been added:
+
+<p>
+  <strong>Topic:</strong>
+  <%= @article.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @article.text %>
+</p>
+<% if @article.image.nil? then %>
+    <span>No pic</span><br/>
+<%else%>
+    <img src="/PostImages/<%= @article.image%>" width="180" height="190"/><br/><br/>
+<%end%>

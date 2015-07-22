@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @classifield.address %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @classifield.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @classifield.longitude %>
+</p>
+
+<%= link_to 'Edit', edit_classifield_path(@classifield) %> |
+<%= link_to 'Back', classifields_path %>

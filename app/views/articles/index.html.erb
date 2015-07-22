@@ -1,0 +1,142 @@
+<br/><br/>
+<span class="submitbtn-color- addidea" id="number1">
+            <button data-target="#submitIdeaPopup" data-toggle="modal" class=" blue btn submit-idea-link">
+              + Submit your own Idea
+            </button>
+    </span>
+
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-2" id="submitIdeaPopup" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content submit-form">
+          <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">X</span><span class="sr-only">Close</span></button>
+            <h4 id="myModalLabel" class="modal-title">Submit an Idea - what kind of Idea do you wish to Submit?</h4>
+          </div>
+
+          <div class="modal-body">
+            <div class="tab-content">
+
+              <div class="tab-pane active" role="tabpanel" id="non_challenge_idea">
+
+                <div>
+                  <%= form_for @article do |f| %>
+
+                      <% if @article.errors.any? %>
+                          <div id="error_explanation">
+                            <h2>
+                              <%= pluralize(@article.errors.count, "error") %> prohibited
+                              this article from being saved:
+                            </h2>
+                            <ul>
+                              <% @article.errors.full_messages.each do |msg| %>
+                                  <li><%= msg %></li>
+                              <% end %>
+                            </ul>
+                          </div>
+                      <% end %>
+
+                    <input type="hidden" value="ctJWAgvSAxFljb8AviYKf+7v9jMchVPK/cTSbTiY1Xg=" name="authenticity_token" id="authenticity_token">
+                    <div class="form-group">
+                      <input type="text" placeholder="Idea title" name="article[title]" class="form-control idea_title">
+                    </div>
+
+                    <div class="form-group">
+                      <textarea rows="5" placeholder="Enter a description of your idea here..." name="article[text]" class="form-control idea_content"></textarea>
+                    </div>
+                    <div class="pull-right">
+                      Characters remaining: <span class="counter">500</span>
+                    </div>
+
+                    <div class="form-group labelsbutt">
+
+                      <%= f.label :AddPhoto%>
+                      <%= f.file_field :photo  %>
+                    </div>
+
+                    <div class="form-group labelsbutt">
+                      <a title="Attach Tags" class="toggle_tags devil" href="#">
+                        <span class="glyphicon glyphicon-tag"></span> Attach Tags
+                      </a><br>
+
+                      <div style="display: none;" class="taggings-div div-2">
+                        <input type="text" placeholder="Type the Tag's name here, then click 'Add Tag'" class="input-tag input-tag-2 form-control" form="2">
+                        <input type="hidden" value="" name="idea[keyword_list]" class="keywordlist-2">
+
+                        <span class="bold">This Idea's Tags are:</span>
+                        <span class="tag-name taglist-2"></span>
+                        <div class="addtag-link"><a form="2" href="#">Add Tag</a></div>
+                      </div>
+                    </div>
+
+                    <input type="hidden" value="" name="group_ids" class="idea_group_id">
+
+                    <div class="form-group text-right ">
+                      <p>
+                        <%= f.submit %>
+                      </p>
+                      <p>Notify me of follow-up comments via email
+                        <input type="checkbox"  name="checked[]" class="is_follow">
+                      </p>
+                    </div>
+                  <% end %>
+                  <hr>
+                  <div class="footer-note">
+                    <span class="bold">What happens after I Submit my Idea?</span>
+                    <br>
+                    <br>
+                    <div class="what-happen-text-div">All Ideas that are submitted to Vetter are anonymous while being rated, after which they are only sent to Abhishek Kumar/Group Admin if they receive an average rating of two stars or more and are thus "Vetted". If your idea is successfully Vetted, you will be notified with an email. <br><br> You can delete your Idea at any time during Rating. Your contribution - Ideas Submitted, Rated, Commented on, are all tracked by Vetter.</div>
+                    <div style="display: none;" class="form-group edit-what-happen-text">
+          <textarea class="form-control what-happen-text" rows="7">All Ideas that are submitted to Vetter are anonymous while being rated, after which they are only sent to Abhishek Kumar/Group Admin if they receive an average rating of two stars or more and are thus "Vetted". If your idea is successfully Vetted, you will be notified with an email.
+
+ You can delete your Idea at any time during Rating. Your contribution - Ideas Submitted, Rated, Commented on, are all tracked by Vetter.</textarea><br>
+                      <input type="button" value="Save" class="btn blue submit-happen-text">
+                      <input type="button" value="Cancel" class="btn cancel-happen-text">
+                    </div>
+                    <a class="customize-this-text" href="#">Customize this text</a>
+                  </div>
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!--popup-end-->
+
+    <!--main-content start-->
+
+    <div class="col-xs-12 col-sm-9 main-content">
+      <h3 class="bold">Notice Board Posts</h3>
+      <% @articles.each do |article| %>
+      <div class="js-idea-list">
+        <div class="idea-section ideablock">
+          <div class="row title">
+            <h4 class="col-xs-10 col-sm-11 col pull-left">
+              <%=article.title%>
+            </h4>
+            <a href=""><%= link_to 'Edit', edit_article_path(article) %></a>
+            <a title="" rel="nofollow" data-method="delete" data-confirm="Are you sure you want to delete this idea?" class="vettertip delete-btn" href="#" data-original-title="Delete Idea"><%= link_to 'Delete', article_path(article),
+                                                                                                                                                                                                          method: :delete,
+                                                                                                                                                                                                          data: { confirm: 'Are you sure?' } %>
+            </a>
+          </div><!-- End Title -->
+          <p><%= article.text %></p>
+          <% if article.image.nil? then %>
+          <span>No pic</span><br/>
+              <%else%>
+              <img src="/PostImages/<%= article.image%>" width="180" height="190"/><br/><br/>
+          <%end%>
+
+          <!--COMMENTS-->
+          <%= link_to 'Add Comments', article_path(article) %>
+
+
+        </div>
+      </div>
+      <%end%>
+      <div class="digg_pagination"> </div>
+      <br>
+      <br>
+    </div><!--main-content end-->
