@@ -20,9 +20,7 @@ before_filter :authorize,only: [:edit,:update,:destroy,:index]
 
       puts params[:checked]
       @check = params[:checked]
-      if(@check[0].to_s == 'on') then
-        puts "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
-
+      if(!@check.nil? && @check[0].to_s == 'on') then
         puts session[:user_mailid]
         UserMailer.sendMail(session[:user_mailid],@article).deliver
        end
